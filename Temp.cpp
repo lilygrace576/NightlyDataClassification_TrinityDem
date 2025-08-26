@@ -12,51 +12,51 @@ int main(int argc, char **argv){
     std::string folString = argv[1];
 
 // Create txt file for Operation Mode 0; Intrigs
-        std::ofstream outputFile0("OpMode0.txt");
+        std::ofstream outputFile0("OpMode0.txt", std::ios::app);
         if (outputFile0.is_open()) {
             outputFile0 << "Operation Mode 0: Intrigs" << "\n";
             outputFile0 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            outputFile0.close();
+            // outputFile0.close();
         } else {
             std::cerr << "Unable to open file for writing." << std::endl;
         }
 
 // Create txt file for Operation Mode 1; Normal
-        std::ofstream outputFile1("OpMode1.txt");
+        std::ofstream outputFile1("OpMode1.txt", std::ios::app);
         if (outputFile1.is_open()) {
             outputFile1 << "Operation Mode 1: Normal" << "\n";
             outputFile1 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            outputFile1.close();
+            // outputFile1.close();
         } else {
             std::cerr << "Unable to open file for writing." << std::endl;
         }
 
 // Create txt file for Operation Mode 2; Extended Moon
-        std::ofstream outputFile2("OpMode2.txt");
+        std::ofstream outputFile2("OpMode2.txt", std::ios::app);
         if (outputFile2.is_open()) {
             outputFile2 << "Operaion Mode 2: Extended Moon" << "\n";
             outputFile2 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            outputFile2.close();
+            // outputFile2.close();
         } else {
             std::cerr << "Unable to open file for writing." << std::endl;
         }
 
 // Create txt file for Operation Mode3; Door Closed
-        std::ofstream outputFile3("OpMode3.txt");
+        std::ofstream outputFile3("OpMode3.txt", std::ios::app);
         if (outputFile3.is_open()) {
             outputFile3 << "Operation Mode 3: Door Down" << "\n";
             outputFile3 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            outputFile3.close();
+            // outputFile3.close();
         } else {
             std::cerr << "Unable to open file for writing." << std::endl;
         }
 
 // Create txt file for Data not being sorted into other files
-        std::ofstream outputFile4("Other.txt");
+        std::ofstream outputFile4("Other.txt", std::ios::app);
         if (outputFile4.is_open()) {
             outputFile4 << "Other" << "\n";
             outputFile4 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            outputFile4.close();
+            // outputFile4.close();
         } else {
             std::cerr << "Unable to open file for writing." << std::endl;
         }
@@ -78,13 +78,21 @@ int main(int argc, char **argv){
     fileNamesVec=util->GetFilesInDirectory(FolderPath,".root");
     if (fileNamesVec.size() == 0){
         std::cout << "no data collected" << std::endl;
+        outputFile0.close();
+        outputFile1.close();
+        outputFile2.close();
+        outputFile3.close();
+        outputFile4.close();
     }
     else if (fileNamesVec.size() == 1){
         std::cout << "attention needed" << std::endl;
+        outputFile0.close();
+        outputFile1.close();
+        outputFile2.close();
+        outputFile3.close();
+        outputFile4.close();
     }
     else {
-
- 
 
     // for(int f = 0; f<20; f++){
     for(int f = 0; f<static_cast<int>(fileNamesVec.size()); f++){
@@ -160,31 +168,31 @@ int main(int argc, char **argv){
 		// std::cout << "BV rounded" << std::round(BVAvg) << endl;
 
 
-// program keeps getting killed
+// program keeps getting killed afte ~3 minutes
         if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
-            std::ofstream outputFile0("OpMode0.txt", std::ios::app); 
+            // std::ofstream outputFile0("OpMode0.txt", std::ios::app); 
             outputFile0 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";            
-            outputFile0.close();
+            // outputFile0.close();
         }
         else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
-            std::ofstream outputFile1("OpMode1.txt", std::ios::app); 
+            // std::ofstream outputFile1("OpMode1.txt", std::ios::app); 
             outputFile1 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
-            outputFile1.close();
+            // outputFile1.close();
         }    
          else if ((roundBVAvg == 41.5) && (roundCurrent >= 3.5)){
-            std::ofstream outputFile2("OpMode2.txt", std::ios::app);
+            // std::ofstream outputFile2("OpMode2.txt", std::ios::app);
             outputFile2 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
-            outputFile2.close();
+            // outputFile2.close();
          }
         else if ((roundBVAvg == 44.0) && (roundCurrent <= 4.0)){
-            std::ofstream outputFile3("OpMode3.txt", std::ios::app);
+            // std::ofstream outputFile3("OpMode3.txt", std::ios::app);
             outputFile3 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
-            outputFile3.close();
+            // outputFile3.close();
         }
         else {
-            std::ofstream outputFile4("Other.txt", std::ios::app);
+            // std::ofstream outputFile4("Other.txt", std::ios::app);
             outputFile4 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
-            outputFile4.close();
+            // outputFile4.close();
         }
 
     }
@@ -192,4 +200,9 @@ int main(int argc, char **argv){
 }
     }
 
+outputFile0.close();
+outputFile1.close();
+outputFile2.close();
+outputFile3.close();
+outputFile4.close();
 }
