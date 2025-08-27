@@ -12,7 +12,7 @@ int main(int argc, char **argv){
 std::string folString = argv[1];
 
 // Create txt file for Operation Mode 0; Intrigs
-std::ofstream outputFile0("OpMode0.txt", std::ios::app);
+std::ofstream outputFile0("OpMode0.txt");
 if (outputFile0.is_open()) {
     outputFile0 << "Operation Mode 0: Intrigs" << "\n";
     outputFile0 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
@@ -22,7 +22,7 @@ if (outputFile0.is_open()) {
 }
 
 // Create txt file for Operation Mode 1; Normal
-std::ofstream outputFile1("OpMode1.txt", std::ios::app);
+std::ofstream outputFile1("OpMode1.txt");
 if (outputFile1.is_open()) {
     outputFile1 << "Operation Mode 1: Normal" << "\n";
     outputFile1 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
@@ -32,7 +32,7 @@ if (outputFile1.is_open()) {
 }
 
 // Create txt file for Operation Mode 2; Extended Moon
-std::ofstream outputFile2("OpMode2.txt", std::ios::app);
+std::ofstream outputFile2("OpMode2.txt");
 if (outputFile2.is_open()) {
     outputFile2 << "Operaion Mode 2: Extended Moon" << "\n";
     outputFile2 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
@@ -42,7 +42,7 @@ if (outputFile2.is_open()) {
 }
 
 // Create txt file for Operation Mode3; Door Closed
-std::ofstream outputFile3("OpMode3.txt", std::ios::app);
+std::ofstream outputFile3("OpMode3.txt");
 if (outputFile3.is_open()) {
     outputFile3 << "Operation Mode 3: Door Down" << "\n";
     outputFile3 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
@@ -52,7 +52,7 @@ if (outputFile3.is_open()) {
 }
 
 // Create txt file for Data not being sorted into other files
-std::ofstream outputFile4("Other.txt", std::ios::app);
+std::ofstream outputFile4("Other.txt");
 if (outputFile4.is_open()) {
     outputFile4 << "Other" << "\n";
     outputFile4 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
@@ -186,6 +186,12 @@ if (fileNamesVec.size() == 0){
             }
 
         }   // close for event in file
+        delete fO;
+        delete ev;
+        delete evHLED;
+        delete sipmInfo;
+        delete tree;
+        delete treeHLED;
 
     }   // close for file in fileNamesVec
 
