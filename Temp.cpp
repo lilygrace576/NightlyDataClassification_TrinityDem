@@ -15,7 +15,8 @@ std::string folString = argv[1];
 std::ofstream outputFile0("intrigs.txt");
 if (outputFile0.is_open()) {
     outputFile0 << "Operation Mode 0: Intrigs" << "\n";
-    outputFile0 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
+    outputFile0 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    // outputFile0 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
     // outputFile0.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -25,7 +26,8 @@ if (outputFile0.is_open()) {
 std::ofstream outputFile1("NormalOps.txt");
 if (outputFile1.is_open()) {
     outputFile1 << "Operation Mode 1: Normal" << "\n";
-    outputFile1 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
+    outputFile1 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    // outputFile1 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
     // outputFile1.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -35,7 +37,8 @@ if (outputFile1.is_open()) {
 std::ofstream outputFile2("ExtMoonOps.txt");
 if (outputFile2.is_open()) {
     outputFile2 << "Operaion Mode 2: Extended Moon" << "\n";
-    outputFile2 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
+    outputFile2 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    // outputFile2 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
     // outputFile2.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -45,7 +48,8 @@ if (outputFile2.is_open()) {
 std::ofstream outputFile3("DoorClosed.txt");
 if (outputFile3.is_open()) {
     outputFile3 << "Operation Mode 3: Door Down" << "\n";
-    outputFile3 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
+    outputFile3 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    // outputFile3 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
     // outputFile3.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -55,7 +59,8 @@ if (outputFile3.is_open()) {
 std::ofstream outputFile4("Other.txt");
 if (outputFile4.is_open()) {
     outputFile4 << "Other" << "\n";
-    outputFile4 << "File Name," << "Event Number," << "Data Type," << "Bias Voltage (V)," << "Current (mA)" << "\n"; 
+    outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    // outputFile4 << "File Name," << "Event Number," << "Data Type," << "Bias Voltage (V)," << "Current (mA)" << "\n"; 
     // outputFile4.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -163,15 +168,15 @@ if (fileNamesVec.size() == 0){
 
         // sorting events it each file based on Bias Voltage and Current
             if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
-                outputFile0 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << BVAvg << ", " << *maxCurrent << "\n";            
+                outputFile0 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << roundBVAvg << ", " << roundCurrent << "\n";            
             } else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
-                outputFile1 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << BVAvg << ", " << *maxCurrent << "\n";
+                outputFile1 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << roundBVAvg << ", " << roundCurrent << "\n";
             } else if ((roundBVAvg == 41.5) && (roundCurrent >= 3.5)){
-                outputFile2 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << BVAvg << ", " << *maxCurrent << "\n";
+                outputFile2 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << roundBVAvg << ", " << roundCurrent << "\n";
             } else if ((roundBVAvg == 44.0) && (roundCurrent <= 4.0)){
-                outputFile3 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << BVAvg << ", " << *maxCurrent << "\n";
+                outputFile3 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << roundBVAvg << ", " << roundCurrent << "\n";
             } else {
-                outputFile4 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << BVAvg << ", " << *maxCurrent << "\n";
+                outputFile4 << fileNamesVec[f].c_str() << ", " << EventCounter << ", " << DataType << ", " << roundBVAvg << ", " << roundCurrent << "\n";
             }
 
         }   // close for event in file
