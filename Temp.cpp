@@ -8,63 +8,63 @@ int main(int argc, char **argv){
 		return 1;
 	}
     
-    // Get the Arguments 
-    std::string folString = argv[1];
+// Get the Arguments 
+std::string folString = argv[1];
 
 // Create txt file for Operation Mode 0; Intrigs
-        std::ofstream outputFile0("OpMode0.txt", std::ios::app);
-        if (outputFile0.is_open()) {
-            outputFile0 << "Operation Mode 0: Intrigs" << "\n";
-            outputFile0 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            // outputFile0.close();
-        } else {
-            std::cerr << "Unable to open file for writing." << std::endl;
-        }
+std::ofstream outputFile0("OpMode0.txt", std::ios::app);
+if (outputFile0.is_open()) {
+    outputFile0 << "Operation Mode 0: Intrigs" << "\n";
+    outputFile0 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
+    // outputFile0.close();
+} else {
+    std::cerr << "Unable to open file for writing." << std::endl;
+}
 
 // Create txt file for Operation Mode 1; Normal
-        std::ofstream outputFile1("OpMode1.txt", std::ios::app);
-        if (outputFile1.is_open()) {
-            outputFile1 << "Operation Mode 1: Normal" << "\n";
-            outputFile1 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            // outputFile1.close();
-        } else {
-            std::cerr << "Unable to open file for writing." << std::endl;
-        }
+std::ofstream outputFile1("OpMode1.txt", std::ios::app);
+if (outputFile1.is_open()) {
+    outputFile1 << "Operation Mode 1: Normal" << "\n";
+    outputFile1 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
+    // outputFile1.close();
+} else {
+    std::cerr << "Unable to open file for writing." << std::endl;
+}
 
 // Create txt file for Operation Mode 2; Extended Moon
-        std::ofstream outputFile2("OpMode2.txt", std::ios::app);
-        if (outputFile2.is_open()) {
-            outputFile2 << "Operaion Mode 2: Extended Moon" << "\n";
-            outputFile2 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            // outputFile2.close();
-        } else {
-            std::cerr << "Unable to open file for writing." << std::endl;
-        }
+std::ofstream outputFile2("OpMode2.txt", std::ios::app);
+if (outputFile2.is_open()) {
+    outputFile2 << "Operaion Mode 2: Extended Moon" << "\n";
+    outputFile2 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
+    // outputFile2.close();
+} else {
+    std::cerr << "Unable to open file for writing." << std::endl;
+}
 
 // Create txt file for Operation Mode3; Door Closed
-        std::ofstream outputFile3("OpMode3.txt", std::ios::app);
-        if (outputFile3.is_open()) {
-            outputFile3 << "Operation Mode 3: Door Down" << "\n";
-            outputFile3 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            // outputFile3.close();
-        } else {
-            std::cerr << "Unable to open file for writing." << std::endl;
-        }
+std::ofstream outputFile3("OpMode3.txt", std::ios::app);
+if (outputFile3.is_open()) {
+    outputFile3 << "Operation Mode 3: Door Down" << "\n";
+    outputFile3 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
+    // outputFile3.close();
+} else {
+    std::cerr << "Unable to open file for writing." << std::endl;
+}
 
 // Create txt file for Data not being sorted into other files
-        std::ofstream outputFile4("Other.txt", std::ios::app);
-        if (outputFile4.is_open()) {
-            outputFile4 << "Other" << "\n";
-            outputFile4 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
-            // outputFile4.close();
-        } else {
-            std::cerr << "Unable to open file for writing." << std::endl;
-        }
+std::ofstream outputFile4("Other.txt", std::ios::app);
+if (outputFile4.is_open()) {
+    outputFile4 << "Other" << "\n";
+    outputFile4 << "File Name                                   " << "Event Number      " << "Data Type     " << "Bias Voltage (V)      " << "Current (mA)" << "\n"; 
+    // outputFile4.close();
+} else {
+    std::cerr << "Unable to open file for writing." << std::endl;
+}
 
 
-    // Load in all the files
-    std::string FolderPath = Form("%s%s/",dataDir.c_str(),folString.c_str());
-    std::cout << "directory: " << dataDir  <<  std::endl;
+// Load in all the files
+std::string FolderPath = Form("%s%s/",dataDir.c_str(),folString.c_str());
+// std::cout << "directory: " << dataDir  <<  std::endl;
 
     // Createthe fileNames Vector based on the type of data found in the passes argument
     // Sim - Simulation data (Only Test Branch events)
@@ -72,31 +72,31 @@ int main(int argc, char **argv){
     // bkg - Background data (Test Branch and HLED Branch events in seperate folder)
     // none - normal data
 
-    std::vector<std::string> fileNamesVec;
+std::vector<std::string> fileNamesVec;
     
 // check if any data collected
-    fileNamesVec=util->GetFilesInDirectory(FolderPath,".root");
-    if (fileNamesVec.size() == 0){
-        std::cout << "no data collected" << std::endl;
-        outputFile0.close();
-        outputFile1.close();
-        outputFile2.close();
-        outputFile3.close();
-        outputFile4.close();
-    }
-    else if (fileNamesVec.size() == 1){
-        std::cout << "attention needed" << std::endl;
-        outputFile0.close();
-        outputFile1.close();
-        outputFile2.close();
-        outputFile3.close();
-        outputFile4.close();
-    }
-    else {
-
+fileNamesVec=util->GetFilesInDirectory(FolderPath,".root");
+if (fileNamesVec.size() == 0){
+    std::cout << "no data collected" << std::endl;
+    // idk if need to close files here
+    outputFile0.close();
+    outputFile1.close();
+    outputFile2.close();
+    outputFile3.close();
+    outputFile4.close();
+} else if (fileNamesVec.size() == 1){
+    std::cout << "attention needed" << std::endl;
+    outputFile0.close();
+    outputFile1.close();
+    outputFile2.close();
+    outputFile3.close();
+    outputFile4.close();
+} else {
+    // std::cout << "file size" << fileNamesVec.size() << std::endl;
+// if fileNamesVec has more than 1 file in it -> run through its data and add to respective files
+    // commented below: just to run through 20 of the files
     // for(int f = 0; f<20; f++){
     for(int f = 0; f<static_cast<int>(fileNamesVec.size()); f++){
-        
         // checks to make sure the  data  file is  readable
         std::string FilePath = Form("%s%s",FolderPath.c_str(),fileNamesVec[f].c_str());
         // std::cout << "file name " << fileNamesVec[f].c_str() << endl;
@@ -104,12 +104,10 @@ int main(int argc, char **argv){
             continue; // Skip to the next branch if not present
         }
 
-        
-        
         int TotalEvents;
         int nEntries;
+
         // loads the events based on the type of data for each file
-    
         LoadEvents(FilePath, "Test");
         LoadEventsHLED(FilePath, "HLED");
         ev = new IEvent();
@@ -118,9 +116,7 @@ int main(int argc, char **argv){
         SetBranches(ev);
         SetBranchesHLED(evHLED);
         tree->SetBranchAddress("SiPM", &sipmInfo);        
-	treeHLED->SetBranchAddress("SiPM", &sipmInfo);
-
-        
+	    treeHLED->SetBranchAddress("SiPM", &sipmInfo);
 
         nEntries = tree->GetEntries();
         int nEntriesHLED = treeHLED->GetEntries();
@@ -129,80 +125,76 @@ int main(int argc, char **argv){
         }
 	    
         TotalEvents = nEntries + nEntriesHLED;
-        // std::cout << "Total Number of Events: " << nEntries << std::endl;
+        // run through each event, get Bias Voltage and Current, add to respective files
         for(int EventCounter =0; EventCounter < TotalEvents; EventCounter++){
-        // std::cout << "Event Number" << EventCounter << std::endl;
-        std::vector<float> Current;
-        std::vector<float> BiasVoltage;
-        std::string DataType;
-        if (EventCounter > nEntries){
-            // std::cout << "HLED" << std::endl;
-            DataType = "HLED";
-            treeHLED->GetEntry(EventCounter - nEntries); 
-            Current = evHLED->Gethvc();
-            BiasVoltage = evHLED->Gethv();
-            // std::cout << DataType << endl;
-        }
-        else {
-            tree->GetEntry(EventCounter);
-            // std::cout << "test" << endl;
-            DataType = "TEST";
-            Current = ev->Gethvc();
-            BiasVoltage = ev->Gethv();
-            // std::cout << DataType << endl;
-        }
+            // std::cout << "Event Number" << EventCounter << std::endl;
+            std::vector<float> Current;
+            std::vector<float> BiasVoltage;
+            std::string DataType;
+        // determine data type (TEST or HLED)
+            if (EventCounter > nEntries){
+                DataType = "HLED";
+                treeHLED->GetEntry(EventCounter - nEntries); 
+                Current = evHLED->Gethvc();
+                BiasVoltage = evHLED->Gethv();
+                // std::cout << DataType << endl;
+            } else {
+                tree->GetEntry(EventCounter);
+                DataType = "TEST";
+                Current = ev->Gethvc();
+                BiasVoltage = ev->Gethv();
+                // std::cout << DataType << endl;
+            }
        
-        // std::cout << "Current0: " << Current[0] << " Current1: " << Current[1] << " Current2: " << Current[2] << " Current3: " << Current[3] << std::endl;
-    // find max current and round to 10ths
-		auto maxCurrent = std::max_element(Current.begin(), Current.end());
-        // std::cout << "Current Max " << *maxCurrent << endl;
-        float roundCurrent = std::round(10 * *maxCurrent) / 10;
-		// std::cout << "Current Rounded" << roundCurrent << std::endl;
-        // std::cout << "BV0: " << BiasVoltage[0] << " BV1: " << BiasVoltage[1] << " BV2: " << BiasVoltage[2] << " BV3: " << BiasVoltage[3] << std::endl;
-    // find avg BV and round to 10ths
-		float sumV = std::accumulate(BiasVoltage.begin(), BiasVoltage.end(), 0.0);
-		float BVAvg = sumV / BiasVoltage.size();
-		// std::cout << "BV AVG: " <<  BVAvg << std::endl;
-        float roundBVAvg = std::round(10 * BVAvg) / 10;
-        // std::cout << "Avg BV rounded" << roundBVAvg << std::endl;
-		// std::cout << "BV rounded" << std::round(BVAvg) << endl;
-
+            // std::cout << "Current0: " << Current[0] << " Current1: " << Current[1] << " Current2: " << Current[2] << " Current3: " << Current[3] << std::endl;
+        // find max current and round to 10ths
+		    auto maxCurrent = std::max_element(Current.begin(), Current.end());
+            // std::cout << "Current Max " << *maxCurrent << endl;
+            float roundCurrent = std::round(10 * *maxCurrent) / 10;
+		    // std::cout << "Current Rounded" << roundCurrent << std::endl;
+            // std::cout << "BV0: " << BiasVoltage[0] << " BV1: " << BiasVoltage[1] << " BV2: " << BiasVoltage[2] << " BV3: " << BiasVoltage[3] << std::endl;
+        // find avg BV and round to 10ths
+		    float sumV = std::accumulate(BiasVoltage.begin(), BiasVoltage.end(), 0.0);
+		    float BVAvg = sumV / BiasVoltage.size();
+		    // std::cout << "BV AVG: " <<  BVAvg << std::endl;
+            float roundBVAvg = std::round(10 * BVAvg) / 10;
+            // std::cout << "Avg BV rounded" << roundBVAvg << std::endl;
+		    // std::cout << "BV rounded" << std::round(BVAvg) << endl;
 
 // program keeps getting killed afte ~3 minutes
-        if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
-            // std::ofstream outputFile0("OpMode0.txt", std::ios::app); 
-            outputFile0 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";            
-            // outputFile0.close();
-        }
-        else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
-            // std::ofstream outputFile1("OpMode1.txt", std::ios::app); 
-            outputFile1 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
-            // outputFile1.close();
-        }    
-         else if ((roundBVAvg == 41.5) && (roundCurrent >= 3.5)){
-            // std::ofstream outputFile2("OpMode2.txt", std::ios::app);
-            outputFile2 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
-            // outputFile2.close();
-         }
-        else if ((roundBVAvg == 44.0) && (roundCurrent <= 4.0)){
-            // std::ofstream outputFile3("OpMode3.txt", std::ios::app);
-            outputFile3 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
-            // outputFile3.close();
-        }
-        else {
-            // std::ofstream outputFile4("Other.txt", std::ios::app);
-            outputFile4 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
-            // outputFile4.close();
-        }
+        // sorting events it each file based on Bias Voltage and Current
+            if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
+                // std::ofstream outputFile0("OpMode0.txt", std::ios::app); 
+                outputFile0 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";            
+                // outputFile0.close();
+            } else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
+                // std::ofstream outputFile1("OpMode1.txt", std::ios::app); 
+                outputFile1 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
+                // outputFile1.close();
+            } else if ((roundBVAvg == 41.5) && (roundCurrent >= 3.5)){
+                // std::ofstream outputFile2("OpMode2.txt", std::ios::app);
+                outputFile2 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
+                // outputFile2.close();
+            } else if ((roundBVAvg == 44.0) && (roundCurrent <= 4.0)){
+                // std::ofstream outputFile3("OpMode3.txt", std::ios::app);
+                outputFile3 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
+                // outputFile3.close();
+            } else {
+                // std::ofstream outputFile4("Other.txt", std::ios::app);
+                outputFile4 << fileNamesVec[f].c_str() << "     " << EventCounter << "                " << DataType << "          " << BVAvg << "               " << *maxCurrent << "\n";
+                // outputFile4.close();
+            }
 
-    }
+        }   // close for event in file
 
-}
-    }
+    }   // close for file in fileNamesVec
+
+}   // close else (fileNamesVec.size() > 1)
 
 outputFile0.close();
 outputFile1.close();
 outputFile2.close();
 outputFile3.close();
 outputFile4.close();
-}
+
+}   // close main
