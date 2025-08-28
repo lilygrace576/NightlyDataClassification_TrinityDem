@@ -59,8 +59,7 @@ if (outputFile3.is_open()) {
 std::ofstream outputFile4("Other.txt");
 if (outputFile4.is_open()) {
     outputFile4 << "Other" << "\n";
-    outputFile4 << "File Name" << "\n"
-    // outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events" << "\n"; 
     // outputFile4 << "File Name," << "Event Number," << "Data Type," << "Bias Voltage (V)," << "Current (mA)" << "\n"; 
     // outputFile4.close();
 } else {
@@ -70,7 +69,6 @@ if (outputFile4.is_open()) {
 
 // Load in all the files
 std::string FolderPath = Form("%s%s/",dataDir.c_str(),folString.c_str());
-// std::cout << "directory: " << dataDir  <<  std::endl;
 
     // Createthe fileNames Vector based on the type of data found in the passes argument
     // Sim - Simulation data (Only Test Branch events)
@@ -84,7 +82,6 @@ std::vector<std::string> fileNamesVec;
 fileNamesVec=util->GetFilesInDirectory(FolderPath,".root");
 if (fileNamesVec.size() == 0){
     std::cout << "no data collected" << std::endl;
-    // idk if need to close files here
     outputFile0.close();
     outputFile1.close();
     outputFile2.close();
@@ -98,14 +95,14 @@ if (fileNamesVec.size() == 0){
     outputFile3.close();
     outputFile4.close();
 } else {
-    // std::cout << "file size" << fileNamesVec.size() << std::endl;
-// if fileNamesVec has more than 1 file in it -> run through its data and add to respective files
+
+    // if fileNamesVec has more than 1 file in it -> run through its data and add to respective files
     // commented below: just to run through 20 of the files
     // for(int f = 0; f<20; f++){
     for(int f = 0; f<static_cast<int>(fileNamesVec.size()); f++){
         // checks to make sure the  data  file is  readable
         std::string FilePath = Form("%s%s",FolderPath.c_str(),fileNamesVec[f].c_str());
-        // std::cout << "file name " << fileNamesVec[f].c_str() << endl;
+        
         if (!util->isBranchPresentInFile(FilePath, "Test")) {
             continue; // Skip to the next branch if not present
         }
@@ -126,6 +123,7 @@ if (fileNamesVec.size() == 0){
 
         nEntries = tree->GetEntries();
         int nEntriesHLED = treeHLED->GetEntries();
+
         if (nEntries==0) {
     // if no Test entries -> file put into intrigs
             outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << "\n";  
@@ -170,16 +168,13 @@ if (fileNamesVec.size() == 0){
         // add rounded max current for each event in file to current vector for file
             fileCurrent.push_back(roundCurrent);
 		    // std::cout << "Current Rounded" << roundCurrent << std::endl;
-            // std::cout << "BV0: " << BiasVoltage[0] << " BV1: " << BiasVoltage[1] << " BV2: " << BiasVoltage[2] << " BV3: " << BiasVoltage[3] << std::endl;
         // find avg BV and round to 10ths
 		    float sumV = std::accumulate(BiasVoltage.begin(), BiasVoltage.end(), 0.0);
 		    float BVAvg = sumV / BiasVoltage.size();
-		    // std::cout << "BV AVG: " <<  BVAvg << std::endl;
             float roundBVAvg = std::round(10 * BVAvg) / 10;
         // add rounded average bias voltage for each event in file to bias voltage vector for file
             fileBV.push_back(roundBVAvg);
             // std::cout << "Avg BV rounded" << roundBVAvg << std::endl;
-		    // std::cout << "BV rounded" << std::round(BVAvg) << endl;
 
     // sorting events of each file based on Bias Voltage and Current
         // if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
@@ -195,8 +190,9 @@ if (fileNamesVec.size() == 0){
         // }
 
         }   // close for event in file
+
 // if elements of BV and Current vectors for each file are equal -> check which operation mode file belongs in and add to corresponding output file
-    if ((var(fileCurrent)==0 ) && (var(fileBV)==0)){
+    if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end()) && (std::adjacent_find(fileCurrent.begin(), fileCurrent.end(), std::not_equal_to<>()) == fileCurrent.end())){
         if ((fileBV[0] == 42.0) && (fileCurrent[0] <= 3.7)){
             outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
         } else if ((fileBV[0] == 44.0) && (fileCurrent[0] > 4.0)){
@@ -209,7 +205,7 @@ if (fileNamesVec.size() == 0){
     }
     // if elements of BV and Current vectors for each file are not equal -> add to other output file
     else {
-        outputFile4 << fileNamesVec[f].c_str() << "\n"
+        outputFile4 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << "\n";
     }        
 
         delete fO;
@@ -221,12 +217,12 @@ if (fileNamesVec.size() == 0){
 
     }   // close for file in fileNamesVec
 
-}   // close else (fileNamesVec.size() > 1)
-
 outputFile0.close();
 outputFile1.close();
 outputFile2.close();
 outputFile3.close();
 outputFile4.close();
+
+}   // close else (fileNamesVec.size() > 1)
 
 }   // close main
