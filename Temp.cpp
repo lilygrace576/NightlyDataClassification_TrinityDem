@@ -59,7 +59,8 @@ if (outputFile3.is_open()) {
 std::ofstream outputFile4("Other.txt");
 if (outputFile4.is_open()) {
     outputFile4 << "Other" << "\n";
-    outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    outputFile4 << "File Name" << "\n"
+    // outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
     // outputFile4 << "File Name," << "Event Number," << "Data Type," << "Bias Voltage (V)," << "Current (mA)" << "\n"; 
     // outputFile4.close();
 } else {
@@ -133,6 +134,10 @@ if (fileNamesVec.size() == 0){
         }
 	    
         TotalEvents = nEntries + nEntriesHLED;
+
+        std::vector<float> fileCurrent;
+        std::vector<float> fileBV;
+
         // run through each event, get Bias Voltage and Current, add to respective files
         for(int EventCounter =0; EventCounter < TotalEvents; EventCounter++){
             // std::cout << "Event Number" << EventCounter << std::endl;
@@ -162,6 +167,8 @@ if (fileNamesVec.size() == 0){
 		    auto maxCurrent = std::max_element(Current.begin(), Current.end());
             // std::cout << "Current Max " << *maxCurrent << endl;
             float roundCurrent = std::round(10 * *maxCurrent) / 10;
+        // add rounded max current for each event in file to current vector for file
+            fileCurrent.push_back(roundCurrent);
 		    // std::cout << "Current Rounded" << roundCurrent << std::endl;
             // std::cout << "BV0: " << BiasVoltage[0] << " BV1: " << BiasVoltage[1] << " BV2: " << BiasVoltage[2] << " BV3: " << BiasVoltage[3] << std::endl;
         // find avg BV and round to 10ths
@@ -169,24 +176,42 @@ if (fileNamesVec.size() == 0){
 		    float BVAvg = sumV / BiasVoltage.size();
 		    // std::cout << "BV AVG: " <<  BVAvg << std::endl;
             float roundBVAvg = std::round(10 * BVAvg) / 10;
+        // add rounded average bias voltage for each event in file to bias voltage vector for file
+            fileBV.push_back(roundBVAvg);
             // std::cout << "Avg BV rounded" << roundBVAvg << std::endl;
 		    // std::cout << "BV rounded" << std::round(BVAvg) << endl;
 
-        // sorting events of each file based on Bias Voltage and Current
-
-            if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
-                outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";            
-            } else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
-                outputFile1 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
-            } else if ((roundBVAvg == 41.5) && (roundCurrent >= 3.5)){
-                outputFile2 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
-            } else if ((roundBVAvg == 44.0) && (roundCurrent <= 4.0)){
-                outputFile3 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
-            } else {
-                outputFile4 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
-            }
+    // sorting events of each file based on Bias Voltage and Current
+        // if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
+        //     // outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";            
+        // } else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
+        //     // outputFile1 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
+        // } else if ((roundBVAvg == 41.5) && (roundCurrent >= 3.5)){
+        //     // outputFile2 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
+        // } else if ((roundBVAvg == 44.0) && (roundCurrent <= 4.0)){
+        //     // outputFile3 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
+        // } else {
+        //     // outputFile4 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
+        // }
 
         }   // close for event in file
+// if elements of BV and Current vectors for each file are equal -> check which operation mode file belongs in and add to corresponding output file
+    if ((var(fileCurrent)==0 ) && (var(fileBV)==0)){
+        if ((fileBV[0] == 42.0) && (fileCurrent[0] <= 3.7)){
+            outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+        } else if ((fileBV[0] == 44.0) && (fileCurrent[0] > 4.0)){
+            outputFile1 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+        } else if ((fileBV[0] == 41.5) && (fileCurrent[0] >= 3.5)){
+            outputFile2 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+        } else if ((fileBV[0] == 44.0) && (fileCurrent[0] <= 4.0)){
+            outputFile3 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+        }
+    }
+    // if elements of BV and Current vectors for each file are not equal -> add to other output file
+    else {
+        outputFile4 << fileNamesVec[f].c_str() << "\n"
+    }        
+
         delete fO;
         delete ev;
         delete evHLED;
