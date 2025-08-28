@@ -126,6 +126,9 @@ if (fileNamesVec.size() == 0){
         nEntries = tree->GetEntries();
         int nEntriesHLED = treeHLED->GetEntries();
         if (nEntries==0) {
+    // if no Test entries -> file put into intrigs
+            outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << "\n";  
+            outputFile0.close();          
             continue; // acts like continue in parrellization
         }
 	    
@@ -143,6 +146,9 @@ if (fileNamesVec.size() == 0){
                 Current = evHLED->Gethvc();
                 BiasVoltage = evHLED->Gethv();
                 // std::cout << DataType << endl;
+            // else if (EventCounter == 0){
+            //     DataType = "Forced";
+            // }
             } else {
                 tree->GetEntry(EventCounter);
                 DataType = "TEST";
@@ -166,7 +172,8 @@ if (fileNamesVec.size() == 0){
             // std::cout << "Avg BV rounded" << roundBVAvg << std::endl;
 		    // std::cout << "BV rounded" << std::round(BVAvg) << endl;
 
-        // sorting events it each file based on Bias Voltage and Current
+        // sorting events of each file based on Bias Voltage and Current
+
             if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
                 outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";            
             } else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
