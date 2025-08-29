@@ -124,13 +124,6 @@ if (fileNamesVec.size() == 0){
         nEntries = tree->GetEntries();
         int nEntriesHLED = treeHLED->GetEntries();
 
-        if (nEntries==0) {
-    // if no Test entries -> file put into intrigs
-            outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << "\n";  
-            outputFile0.close();          
-            continue; // acts like continue in parrellization
-        }
-	    
         TotalEvents = nEntries + nEntriesHLED;
 
         std::vector<float> fileCurrent;
@@ -165,6 +158,8 @@ if (fileNamesVec.size() == 0){
 		    auto maxCurrent = std::max_element(Current.begin(), Current.end());
             // std::cout << "Current Max " << *maxCurrent << endl;
             float roundCurrent = std::round(10 * *maxCurrent) / 10;
+        // set sigfigs 
+        
         // add rounded max current for each event in file to current vector for file
             fileCurrent.push_back(roundCurrent);
 		    // std::cout << "Current Rounded" << roundCurrent << std::endl;
@@ -172,6 +167,8 @@ if (fileNamesVec.size() == 0){
 		    float sumV = std::accumulate(BiasVoltage.begin(), BiasVoltage.end(), 0.0);
 		    float BVAvg = sumV / BiasVoltage.size();
             float roundBVAvg = std::round(10 * BVAvg) / 10;
+    // need to set sigfigs so 44 -> 44.0
+
         // add rounded average bias voltage for each event in file to bias voltage vector for file
             fileBV.push_back(roundBVAvg);
             // std::cout << "Avg BV rounded" << roundBVAvg << std::endl;
@@ -191,16 +188,23 @@ if (fileNamesVec.size() == 0){
 
         }   // close for event in file
 
+// not sure if in right place
+    if (nEntries==0) {
+// if no Test entries -> file put into intrigs
+        outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";  
+        outputFile0.close();          
+    }
+
 // if elements of BV and Current vectors for each file are equal -> check which operation mode file belongs in and add to corresponding output file
     if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end()) && (std::adjacent_find(fileCurrent.begin(), fileCurrent.end(), std::not_equal_to<>()) == fileCurrent.end())){
         if ((fileBV[0] == 42.0) && (fileCurrent[0] <= 3.7)){
-            outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
         } else if ((fileBV[0] == 44.0) && (fileCurrent[0] > 4.0)){
-            outputFile1 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile1 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
         } else if ((fileBV[0] == 41.5) && (fileCurrent[0] >= 3.5)){
-            outputFile2 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile2 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
         } else if ((fileBV[0] == 44.0) && (fileCurrent[0] <= 4.0)){
-            outputFile3 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile3 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
         }
     }
     // if elements of BV and Current vectors for each file are not equal -> add to other output file
