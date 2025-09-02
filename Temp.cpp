@@ -137,7 +137,7 @@ if (fileNamesVec.size() == 0){
             std::vector<float> BiasVoltage;
             std::string DataType;
         // determine data type (TEST or HLED)
-            if (EventCounter > nEntries){
+            if (EventCounter >= nEntries){
                 DataType = "HLED";
                 treeHLED->GetEntry(EventCounter - nEntries); 
                 Current = evHLED->Gethvc();
@@ -191,8 +191,8 @@ if (fileNamesVec.size() == 0){
 // not sure if in right place
     if (nEntries==0) {
 // if no Test entries -> file put into intrigs
-        outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";  
-        outputFile0.close();          
+        outputFile0 << std::fixed << std::setprecision(1);
+        outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";            
     }
 
 // if elements of BV and Current vectors for each file are equal -> check which operation mode file belongs in and add to corresponding output file
