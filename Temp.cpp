@@ -185,18 +185,17 @@ if (fileNamesVec.size() == 0){
 
         }   // close for event in file
 
-// not sure if in right place
-    if (nEntries==0) {
-        OpMode = "intrigs";
-// if no Test entries -> file put into intrigs
-        outputFile0 << std::fixed << std::setprecision(1);
-        outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";            
-        outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";            
-    }
+//     if (nEntries==0) {
+//         OpMode = "intrigs";
+// // if no Test entries -> file put into intrigs
+//         outputFile0 << std::fixed << std::setprecision(1);
+//         outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";            
+//         outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";            
+//     }
 
 // if elements of BV and Current vectors for each file are equal -> check which operation mode file belongs in and add to corresponding output file
     if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end()) && (std::adjacent_find(fileCurrent.begin(), fileCurrent.end(), std::not_equal_to<>()) == fileCurrent.end())){
-        if ((fileBV[0] == 42.0) && (fileCurrent[0] <= 3.7)){
+        if ((nEntries==0) || ((fileBV[0] == 42.0) && (fileCurrent[0] <= 3.7))){
             OpMode = "intrigs";
             outputFile0 << std::fixed << std::setprecision(1);
             outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
