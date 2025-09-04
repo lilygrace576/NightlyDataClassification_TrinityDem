@@ -222,6 +222,7 @@ if (fileNamesVec.size() == 0){
     else {
         outputFile4 << std::fixed << std::setprecision(1);
         outputFile4 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+        outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
     }        
 
         delete fO;
