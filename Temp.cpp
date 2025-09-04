@@ -191,8 +191,7 @@ if (fileNamesVec.size() == 0){
 // if no Test entries -> file put into intrigs
         outputFile0 << std::fixed << std::setprecision(1);
         outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";            
-        outputFile5 << std::fixed << std::setprecision(1);
-        outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";            
+        outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";            
     }
 
 // if elements of BV and Current vectors for each file are equal -> check which operation mode file belongs in and add to corresponding output file
@@ -201,26 +200,22 @@ if (fileNamesVec.size() == 0){
             OpMode = "intrigs";
             outputFile0 << std::fixed << std::setprecision(1);
             outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
-            outputFile5 << std::fixed << std::setprecision(1);
-            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
         } else if ((fileBV[0] == 44.0) && (fileCurrent[0] > 4.0)){
             OpMode = "Normal Ops";
             outputFile1 << std::fixed << std::setprecision(1);
             outputFile1 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
-            outputFile5 << std::fixed << std::setprecision(1);
-            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
         } else if ((fileBV[0] == 41.5) && (fileCurrent[0] >= 3.5)){
             OpMode = "Ext. Moon Ops";
             outputFile2 << std::fixed << std::setprecision(1);
             outputFile2 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
-            outputFile5 << std::fixed << std::setprecision(1);
-            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
         } else if ((fileBV[0] == 44.0) && (fileCurrent[0] <= 4.0)){
             OpMode = "Door Closed Ops";
             outputFile3 << std::fixed << std::setprecision(1);
             outputFile3 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
-            outputFile5 << std::fixed << std::setprecision(1);
-            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
         }
     }
     // if elements of BV and Current vectors for each file are not equal -> add to other output file
@@ -247,3 +242,17 @@ outputFile5.close()
 }   // close else (fileNamesVec.size() > 1)
 
 }   // close main
+
+
+    // sorting events of each file based on Bias Voltage and Current
+        // if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
+        //     // outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";            
+        // } else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
+        //     // outputFile1 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
+        // } else if ((roundBVAvg == 41.5) && (roundCurrent >= 3.5)){
+        //     // outputFile2 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
+        // } else if ((roundBVAvg == 44.0) && (roundCurrent <= 4.0)){
+        //     // outputFile3 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
+        // } else {
+        //     // outputFile4 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
+        // }
