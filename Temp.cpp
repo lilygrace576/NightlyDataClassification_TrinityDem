@@ -219,6 +219,7 @@ if (fileNamesVec.size() == 0){
     }
     // if elements of BV and Current vectors for each file are not equal -> add to other output file
     else {
+        OpMode = "other";
         outputFile4 << std::fixed << std::setprecision(1);
         outputFile4 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
         outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
