@@ -60,7 +60,7 @@ if (outputFile3.is_open()) {
 std::ofstream outputFile4("Other.txt");
 if (outputFile4.is_open()) {
     outputFile4 << "Other" << "\n";
-    outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events" << "\n"; 
+    outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" <<  "\n"; 
     // outputFile4 << "File Name," << "Event Number," << "Data Type," << "Bias Voltage (V)," << "Current (mA)" << "\n"; 
     // outputFile4.close();
 } else {
@@ -220,7 +220,8 @@ if (fileNamesVec.size() == 0){
     }
     // if elements of BV and Current vectors for each file are not equal -> add to other output file
     else {
-        outputFile4 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << "\n";
+        outputFile4 << std::fixed << std::setprecision(1);
+        outputFile4 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
     }        
 
         delete fO;
