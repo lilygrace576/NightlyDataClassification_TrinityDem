@@ -195,6 +195,12 @@ def writeRankingSQL(d, fileList, ranking, rankingComment):
     with open(output_sql, mode='w') as sql_file:
 
         for f in fileList:            
+            #looking for csv data for entry with same file name as f in fileList
+            # print(f'file from list')
+            # print(f)
+            opModeInfo = df[df['File Name'] == f]
+
+            try:
             # Generate the INSERT statement for each row
             sql = (
                 f"INSERT INTO RankingInfo(Filename, ranking, comments, operation mode) "
