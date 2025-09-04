@@ -70,7 +70,6 @@ if (outputFile4.is_open()) {
 // Create txt file for Data not being sorted into other files
 std::ofstream outputFile5("AllFiles.txt");
 if (outputFile5.is_open()) {
-    outputFile5 << "Other" << "\n";
     outputFile5 << "File Name, " << "OpMode, " << "Test Events, " << "HLED Events, " << "Forced Events" << "\n"; 
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
