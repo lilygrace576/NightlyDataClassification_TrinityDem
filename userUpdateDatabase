@@ -184,13 +184,17 @@ def writeDataInfoSQL(d,fileList, badPixels, commentDataInfo):
     
 def writeRankingSQL(d, fileList, ranking, rankingComment):
     output_sql = f'Output/Ranking_{d}.sql'  # Output SQL file
+    OpModeFile = f'/storage/hive/project/phy-otte/lsheram6/LilysPlace/NightlyDataClassification_TrinityDem/AllFiles.txt'
+
+    df = pd.read_csv(OpModeFile, delimiter=',')
+    df.to_csv('OpMode.csv', index = None)
 
     with open(output_sql, mode='w') as sql_file:
 
-        for f in fileList:
+        for f in fileList:            
             # Generate the INSERT statement for each row
             sql = (
-                f"INSERT INTO RankingInfo(Filename, ranking, comments) "
+                f"INSERT INTO RankingInfo(Filename, ranking, comments, operation mode) "
                 f"VALUES ('{f}','{ranking}','{rankingComment}');\n"
             )
             # Write the generated SQL statement to the output file
@@ -285,7 +289,7 @@ def writeCelestialSQL(d,fileList):
 
         for f in fileList:
             celestialInfo=df[df['DateTime'] == timeFromFile(f,"c")]
-
+ 
             try:
                 # Generate the INSERT statement for each row
                 sql = (
