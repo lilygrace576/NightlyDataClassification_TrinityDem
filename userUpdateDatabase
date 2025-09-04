@@ -207,7 +207,9 @@ def writeRankingSQL(d, fileList, ranking, rankingComment):
                     f"VALUES ('{f}','{ranking}','{rankingComment}','{opModeInfo[' OpMode'].tolist()[0]}','{opModeInfo[' Test Events'].tolist()[0]}','{opModeInfo[' HLED Events'].tolist()[0]}','{opModeInfo[' Forced Events'].tolist()[0]}');\n"
                 )
             # Write the generated SQL statement to the output file
-            sql_file.write(sql)
+                sql_file.write(sql)
+            except:
+                print(f"ranking info incomplete or some error please check file {f}")
 
     os.chmod(output_sql, 0o666)
     return print(f"Ranking SQL queries have been written to {output_sql}")
