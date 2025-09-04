@@ -18,7 +18,6 @@ if (outputFile0.is_open()) {
     outputFile0 << "Operation Mode 0: Intrigs" << "\n";
     outputFile0 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
     // outputFile0 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
-    // outputFile0.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
 }
@@ -29,7 +28,6 @@ if (outputFile1.is_open()) {
     outputFile1 << "Operation Mode 1: Normal" << "\n";
     outputFile1 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
     // outputFile1 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
-    // outputFile1.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
 }
@@ -40,7 +38,6 @@ if (outputFile2.is_open()) {
     outputFile2 << "Operaion Mode 2: Extended Moon" << "\n";
     outputFile2 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
     // outputFile2 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
-    // outputFile2.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
 }
@@ -51,7 +48,6 @@ if (outputFile3.is_open()) {
     outputFile3 << "Operation Mode 3: Door Down" << "\n";
     outputFile3 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
     // outputFile3 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
-    // outputFile3.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
 }
@@ -62,7 +58,6 @@ if (outputFile4.is_open()) {
     outputFile4 << "Other" << "\n";
     outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" <<  "\n"; 
     // outputFile4 << "File Name," << "Event Number," << "Data Type," << "Bias Voltage (V)," << "Current (mA)" << "\n"; 
-    // outputFile4.close();
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
 }
@@ -106,11 +101,11 @@ if (fileNamesVec.size() == 0){
     outputFile5.close()
 } else {
 
-    // if fileNamesVec has more than 1 file in it -> run through its data and add to respective files
-    // commented below: just to run through 20 of the files
-    // for(int f = 0; f<20; f++){
+// if fileNamesVec has more than 1 file in it -> run through its data and add to respective files
+// commented below: just to run through 20 of the files
+// for(int f = 0; f<20; f++){
     for(int f = 0; f<static_cast<int>(fileNamesVec.size()); f++){
-        // checks to make sure the  data  file is  readable
+    // checks to make sure the  data  file is  readable
         std::string FilePath = Form("%s%s",FolderPath.c_str(),fileNamesVec[f].c_str());
         
         if (!util->isBranchPresentInFile(FilePath, "Test")) {
@@ -120,7 +115,7 @@ if (fileNamesVec.size() == 0){
         int TotalEvents;
         int nEntries;
 
-        // loads the events based on the type of data for each file
+    // loads the events based on the type of data for each file
         LoadEvents(FilePath, "Test");
         LoadEventsHLED(FilePath, "HLED");
         ev = new IEvent();
@@ -140,19 +135,17 @@ if (fileNamesVec.size() == 0){
         std::vector<float> fileBV;
         std::string OpMode;
 
-        // run through each event, get Bias Voltage and Current, add to respective files
+    // run through each event, get Bias Voltage and Current, add to respective files
         for(int EventCounter =0; EventCounter < TotalEvents; EventCounter++){
-            // std::cout << "Event Number" << EventCounter << std::endl;
             std::vector<float> Current;
             std::vector<float> BiasVoltage;
             std::string DataType;
-        // determine data type (TEST or HLED)
+    // determine data type (TEST or HLED)
             if (EventCounter >= nEntries){
                 DataType = "HLED";
                 treeHLED->GetEntry(EventCounter - nEntries); 
                 Current = evHLED->Gethvc();
                 BiasVoltage = evHLED->Gethv();
-                // std::cout << DataType << endl;
             // else if (EventCounter == 0){
             //     DataType = "Forced";
             // }
@@ -161,28 +154,21 @@ if (fileNamesVec.size() == 0){
                 DataType = "TEST";
                 Current = ev->Gethvc();
                 BiasVoltage = ev->Gethv();
-                // std::cout << DataType << endl;
             }
        
-            // std::cout << "Current0: " << Current[0] << " Current1: " << Current[1] << " Current2: " << Current[2] << " Current3: " << Current[3] << std::endl;
         // find max current and round to 10ths
 		    auto maxCurrent = std::max_element(Current.begin(), Current.end());
-            // std::cout << "Current Max " << *maxCurrent << endl;
             float roundCurrent = std::round(10 * *maxCurrent) / 10;
         // set sigfigs 
             curr << std::fixed << std::setprecision(1) << roundCurrent;
-            std::cout << "sig fig current" << curr << std::endl;
         // add rounded max current for each event in file to current vector for file
             fileCurrent.push_back(roundCurrent);
-		    // std::cout << "Current Rounded" << roundCurrent << std::endl;
         // find avg BV and round to 10ths
 		    float sumV = std::accumulate(BiasVoltage.begin(), BiasVoltage.end(), 0.0);
 		    float BVAvg = sumV / BiasVoltage.size();
             float roundBVAvg = std::round(10 * BVAvg) / 10;
         // add rounded average bias voltage for each event in file to bias voltage vector for file
             fileBV.push_back(roundBVAvg);
-            // std::cout << "Avg BV rounded" << roundBVAvg << std::endl;
-
         }   // close for event in file
 
 //     if (nEntries==0) {
@@ -217,7 +203,7 @@ if (fileNamesVec.size() == 0){
             outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
         }
     }
-    // if elements of BV and Current vectors for each file are not equal -> add to other output file
+// if elements of BV and Current vectors for each file are not equal -> add to other output file
     else {
         OpMode = "other";
         outputFile4 << std::fixed << std::setprecision(1);
