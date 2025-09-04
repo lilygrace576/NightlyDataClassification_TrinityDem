@@ -183,19 +183,6 @@ if (fileNamesVec.size() == 0){
             fileBV.push_back(roundBVAvg);
             // std::cout << "Avg BV rounded" << roundBVAvg << std::endl;
 
-    // sorting events of each file based on Bias Voltage and Current
-        // if ((roundBVAvg == 42.0) && (roundCurrent <= 3.7)){
-        //     // outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";            
-        // } else if ((roundBVAvg == 44.0) && (roundCurrent > 4.0)){
-        //     // outputFile1 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
-        // } else if ((roundBVAvg == 41.5) && (roundCurrent >= 3.5)){
-        //     // outputFile2 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
-        // } else if ((roundBVAvg == 44.0) && (roundCurrent <= 4.0)){
-        //     // outputFile3 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
-        // } else {
-        //     // outputFile4 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << roundBVAvg << ", " << roundCurrent << "\n";
-        // }
-
         }   // close for event in file
 
 // not sure if in right place
