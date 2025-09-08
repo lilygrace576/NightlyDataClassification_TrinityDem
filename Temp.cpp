@@ -173,7 +173,7 @@ if (fileNamesVec.size() == 0){
                 std::cout << "Current: " << Current[EventCounter] << std::endl;
                 std::cout << "BV: " << BiasVoltage[EventCounter] << std::endl;
             }
-        }
+        
        
         // find max current and round to 10ths
 		    auto maxCurrent = std::max_element(Current.begin(), Current.end());
@@ -188,7 +188,7 @@ if (fileNamesVec.size() == 0){
             std::cout << "rounded avg bs" << roundBVAvg << std::endl;
         // add rounded average bias voltage for each event in file to bias voltage vector for file
             fileBV.push_back(roundBVAvg);
-        // }   // close for event in file
+        }   // close for event in file
 
 //     if (nEntries==0) {
 //         OpMode = "intrigs";
