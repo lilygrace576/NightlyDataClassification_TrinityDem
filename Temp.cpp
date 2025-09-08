@@ -104,10 +104,10 @@ if (fileNamesVec.size() == 0){
 // if fileNamesVec has more than 1 file in it -> run through its data and add to respective files
 // commented below: just to run through 20 of the files
 // for(int f = 0; f<20; f++){
-    // for(int f = 0; f<static_cast<int>(fileNamesVec.size()); f++){
+    for(int f = 0; f<static_cast<int>(fileNamesVec.size()); f++){
 
     // checking my wonky files (f=136, 140, 229, 231)
-        for(int f = 135; f<=231; f++){
+        // for(int f = 135; f<=231; f++){
 
     // checks to make sure the  data  file is  readable
         std::string FilePath = Form("%s%s",FolderPath.c_str(),fileNamesVec[f].c_str());
