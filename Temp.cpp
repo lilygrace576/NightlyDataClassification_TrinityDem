@@ -204,7 +204,7 @@ if (fileNamesVec.size() == 0){
 //     }
 
 // if elements of BV and Current vectors for each file are equal -> check which operation mode file belongs in and add to corresponding output file
-    if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end()) && (std::adjacent_find(fileCurrent.begin(), fileCurrent.end(), std::not_equal_to<>()) == fileCurrent.end())){
+    if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end())){
         if ((nEntries==0) || ((fileBV[0] == 42.0) && (fileCurrent[0] <= 3.7))){
             OpMode = 0;
             outputFile0 << std::fixed << std::setprecision(1);
