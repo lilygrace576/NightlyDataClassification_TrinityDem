@@ -202,34 +202,37 @@ if (fileNamesVec.size() == 0){
 //         outputFile0 << fileNamesVec[f].c_str() << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";            
 //         outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";            
 //     }
+        
+	auto maxFileCurrent = std::max_element(fileCurrent.begin(), fileCurrent.end());
+    float roundFileCurrent = std::round(10 * *maxFileCurrent) / 10;
 
 // if elements of BV and Current vectors for each file are equal -> check which operation mode file belongs in and add to corresponding output file
     if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end())){
-        if ((nEntries==0) || ((fileBV[0] == 42.0) && (fileCurrent[0] <= 3.7))){
+        if ((nEntries==0) && ((fileBV[0] == 42.0) && (roundFileCurrent <= 3.7))){
             OpMode = 0;
             outputFile0 << std::fixed << std::setprecision(1);
-            outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << roundFileCurrent << "\n";
             outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
         }
         else if ((nEntries==0) && (fileBV[0] != 42.0)){
             OpMode = 6;
             outputFile4 << std::fixed << std::setprecision(1);
-            outputFile4 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile4 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << roundFileCurrent << "\n";
             outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
-        } else if ((fileBV[0] == 44.0) && (fileCurrent[0] > 4.0)){
+        } else if ((fileBV[0] == 44.0) && (roundFileCurrent > 4.0)){
             OpMode = 1;
             outputFile1 << std::fixed << std::setprecision(1);
-            outputFile1 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile1 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << roundFileCurrent << "\n";
             outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
-        } else if ((fileBV[0] == 41.5) && (fileCurrent[0] >= 3.5)){
+        } else if ((fileBV[0] == 41.5) && (roundFileCurrent >= 3.5)){
             OpMode = 2;
             outputFile2 << std::fixed << std::setprecision(1);
-            outputFile2 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile2 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << roundFileCurrent << "\n";
             outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
-        } else if ((fileBV[0] == 44.0) && (fileCurrent[0] <= 4.0)){
+        } else if ((fileBV[0] == 44.0) && (roundFileCurrent <= 4.0)){
             OpMode = 3;
             outputFile3 << std::fixed << std::setprecision(1);
-            outputFile3 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile3 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << roundFileCurrent << "\n";
             outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
         }
     }
@@ -237,7 +240,7 @@ if (fileNamesVec.size() == 0){
     else {
         OpMode = 6;
         outputFile4 << std::fixed << std::setprecision(1);
-        outputFile4 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+        outputFile4 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << roundFileCurrent << "\n";
         outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
     }        
 
