@@ -210,6 +210,12 @@ if (fileNamesVec.size() == 0){
             outputFile0 << std::fixed << std::setprecision(1);
             outputFile0 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
             outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
+        }
+        else if ((nEntries==0) && (fileBV[0] != 42.0)){
+            OpMode = 6;
+            outputFile4 << std::fixed << std::setprecision(1);
+            outputFile4 << fileNamesVec[f].c_str() << ", "  << nEntries << ", " << nEntriesHLED << ", " << 0 << ", " << fileBV[0] << ", " << fileCurrent[0] << "\n";
+            outputFile5 << fileNamesVec[f].c_str() << ", " << OpMode << ", " << nEntries << ", " << nEntriesHLED << ", " << 0 << "\n";
         } else if ((fileBV[0] == 44.0) && (fileCurrent[0] > 4.0)){
             OpMode = 1;
             outputFile1 << std::fixed << std::setprecision(1);
