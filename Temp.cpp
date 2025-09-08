@@ -16,7 +16,7 @@ std::string folString = argv[1];
 std::ofstream outputFile0("intrigs.txt");
 if (outputFile0.is_open()) {
     outputFile0 << "Operation Mode 0: Intrigs" << "\n";
-    outputFile0 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    outputFile0 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" << "\n"; 
     // outputFile0 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -26,7 +26,7 @@ if (outputFile0.is_open()) {
 std::ofstream outputFile1("NormalOps.txt");
 if (outputFile1.is_open()) {
     outputFile1 << "Operation Mode 1: Normal" << "\n";
-    outputFile1 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    outputFile1 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" << "\n"; 
     // outputFile1 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -36,7 +36,7 @@ if (outputFile1.is_open()) {
 std::ofstream outputFile2("ExtMoonOps.txt");
 if (outputFile2.is_open()) {
     outputFile2 << "Operaion Mode 2: Extended Moon" << "\n";
-    outputFile2 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    outputFile2 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" << "\n"; 
     // outputFile2 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -46,7 +46,7 @@ if (outputFile2.is_open()) {
 std::ofstream outputFile3("DoorClosed.txt");
 if (outputFile3.is_open()) {
     outputFile3 << "Operation Mode 3: Door Down" << "\n";
-    outputFile3 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" << "\n"; 
+    outputFile3 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" << "\n"; 
     // outputFile3 << "File Name, " << "Event Number, " << "Data Type, " << "Bias Voltage (V), " << "Current (mA)" << "\n"; 
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
@@ -56,7 +56,7 @@ if (outputFile3.is_open()) {
 std::ofstream outputFile4("Other.txt");
 if (outputFile4.is_open()) {
     outputFile4 << "Other" << "\n";
-    outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Avg Currents" <<  "\n"; 
+    outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" <<  "\n"; 
     // outputFile4 << "File Name," << "Event Number," << "Data Type," << "Bias Voltage (V)," << "Current (mA)" << "\n"; 
 } else {
     std::cerr << "Unable to open file for writing." << std::endl;
