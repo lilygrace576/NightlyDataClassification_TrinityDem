@@ -178,7 +178,7 @@ if (fileNamesVec.size() == 0){
         // find max current and round to 10ths
 		    auto maxCurrent = std::max_element(Current.begin(), Current.end());
             float roundCurrent = std::round(10 * *maxCurrent) / 10;
-            curr << std::fixed << std::setprecision(1) << roundCurrent;
+            std::cout << "rounded current" << roundCurrent << std::endl;
         // add rounded max current for each event in file to current vector for file
             fileCurrent.push_back(roundCurrent);
         // find avg BV and round to 10ths
