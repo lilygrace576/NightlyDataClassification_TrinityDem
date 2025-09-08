@@ -178,7 +178,6 @@ if (fileNamesVec.size() == 0){
         // find max current and round to 10ths
 		    auto maxCurrent = std::max_element(Current.begin(), Current.end());
             float roundCurrent = std::round(10 * *maxCurrent) / 10;
-        // set sigfigs 
             curr << std::fixed << std::setprecision(1) << roundCurrent;
         // add rounded max current for each event in file to current vector for file
             fileCurrent.push_back(roundCurrent);
@@ -186,6 +185,7 @@ if (fileNamesVec.size() == 0){
 		    float sumV = std::accumulate(BiasVoltage.begin(), BiasVoltage.end(), 0.0);
 		    float BVAvg = sumV / BiasVoltage.size();
             float roundBVAvg = std::round(10 * BVAvg) / 10;
+            std::cout << "rounded avg bs" << roundBVAvg << std::endl;
         // add rounded average bias voltage for each event in file to bias voltage vector for file
             fileBV.push_back(roundBVAvg);
         // }   // close for event in file
