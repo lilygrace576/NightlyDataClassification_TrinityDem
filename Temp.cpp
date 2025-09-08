@@ -162,16 +162,17 @@ if (fileNamesVec.size() == 0){
                 treeHLED->GetEntry(EventCounter - nEntries); 
                 Current = evHLED->Gethvc();
                 BiasVoltage = evHLED->Gethv();
-                std::cout << "Current: " << Current[EventCounter] << std::endl;
-                std::cout << "BV: " << BiasVoltage[EventCounter] << std::endl;
-         
+            // print each of events 4 current and 4 bv values
+                std::cout << "Current: " << Current[0] << ", " << Current[1] << ", " << Current[2] << ", " << Current[3] << std::endl;
+                std::cout << "BV: " << BiasVoltage[0] << ", " << BiasVoltage[1] << ", " << BiasVoltage[2] << ", " << BiasVoltage[3] << std::endl;
+                
             } else {
                 tree->GetEntry(EventCounter);
                 DataType = "TEST";
                 Current = ev->Gethvc();
                 BiasVoltage = ev->Gethv();
-                std::cout << "Current: " << Current[EventCounter] << std::endl;
-                std::cout << "BV: " << BiasVoltage[EventCounter] << std::endl;
+                std::cout << "Current: " << Current[0] << ", " << Current[1] << ", " << Current[2] << ", " << Current[3] << std::endl;
+                std::cout << "BV: " << BiasVoltage[0] << ", " << BiasVoltage[1] << ", " << BiasVoltage[2] << ", " << BiasVoltage[3] << std::endl;
             }
         
        
