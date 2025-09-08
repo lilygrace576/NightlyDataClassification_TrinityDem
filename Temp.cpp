@@ -118,8 +118,8 @@ if (fileNamesVec.size() == 0){
 
 
 // check specific file
-        if (f==136) {
-        std::cout << "file: " << f << std::endl;
+        // if (f==136) {
+        // std::cout << "file: " << f << std::endl;
 
         int TotalEvents;
         int nEntries;
@@ -144,9 +144,6 @@ if (fileNamesVec.size() == 0){
 
         TotalEvents = nEntries + nEntriesHLED;
 
-    // moved Current and BV vectors outside event for loop
-        std::vector<float> Current;
-        std::vector<float> BiasVoltage;
         std::vector<float> fileCurrent;
         std::vector<float> fileBV;
         int OpMode;
@@ -154,8 +151,10 @@ if (fileNamesVec.size() == 0){
     // run through each event, get Bias Voltage and Current, add to respective files
         for(int EventCounter =0; EventCounter < TotalEvents; EventCounter++){
     // list out each events current and BV
-            std::cout << "Event Number" << EventCounter << std::endl;
+            std::cout << "Event Number: " << EventCounter << std::endl;
             std::string DataType;
+            std::vector<float> Current;
+            std::vector<float> BiasVoltage;
     // determine data type (TEST or HLED)
             if (EventCounter >= nEntries){
                 DataType = "HLED";
@@ -191,10 +190,10 @@ if (fileNamesVec.size() == 0){
             fileBV.push_back(roundBVAvg);
         }   // close for event in file
 
-    if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end()) && (std::adjacent_find(fileCurrent.begin(), fileCurrent.end(), std::not_equal_to<>()) == fileCurrent.end())){
-        std::cout << "file current: " << fileCurrent[0] << std::endl;
-        std::cout << "file bv: " << fileBV[0] << std::endl;
-    }
+    // if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end()) && (std::adjacent_find(fileCurrent.begin(), fileCurrent.end(), std::not_equal_to<>()) == fileCurrent.end())){
+    //     std::cout << "file current: " << fileCurrent[0] << std::endl;
+    //     std::cout << "file bv: " << fileBV[0] << std::endl;
+    // }
 
 //     if (nEntries==0) {
 //         OpMode = "intrigs";
