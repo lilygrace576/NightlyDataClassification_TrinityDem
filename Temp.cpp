@@ -144,6 +144,9 @@ if (fileNamesVec.size() == 0){
 
         TotalEvents = nEntries + nEntriesHLED;
 
+    // moved Current and BV vectors outside event for loop
+        std::vector<float> Current;
+        std::vector<float> BiasVoltage;
         std::vector<float> fileCurrent;
         std::vector<float> fileBV;
         int OpMode;
@@ -168,6 +171,7 @@ if (fileNamesVec.size() == 0){
                 Current = ev->Gethvc();
                 BiasVoltage = ev->Gethv();
             }
+        }
        
         // find max current and round to 10ths
 		    auto maxCurrent = std::max_element(Current.begin(), Current.end());
@@ -182,7 +186,7 @@ if (fileNamesVec.size() == 0){
             float roundBVAvg = std::round(10 * BVAvg) / 10;
         // add rounded average bias voltage for each event in file to bias voltage vector for file
             fileBV.push_back(roundBVAvg);
-        }   // close for event in file
+        // }   // close for event in file
 
 //     if (nEntries==0) {
 //         OpMode = "intrigs";
