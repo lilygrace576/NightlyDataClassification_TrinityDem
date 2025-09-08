@@ -153,8 +153,8 @@ if (fileNamesVec.size() == 0){
 
     // run through each event, get Bias Voltage and Current, add to respective files
         for(int EventCounter =0; EventCounter < TotalEvents; EventCounter++){
-            std::vector<float> Current;
-            std::vector<float> BiasVoltage;
+    // list out each events current and BV
+            std::cout << "Event Number" << EventCounter << std::endl;
             std::string DataType;
     // determine data type (TEST or HLED)
             if (EventCounter >= nEntries){
@@ -162,14 +162,16 @@ if (fileNamesVec.size() == 0){
                 treeHLED->GetEntry(EventCounter - nEntries); 
                 Current = evHLED->Gethvc();
                 BiasVoltage = evHLED->Gethv();
-            // else if (EventCounter == 0){
-            //     DataType = "Forced";
-            // }
+                std::cout << "Current: " << Current[EventCounter] << std::endl;
+                std::cout << "BV: " << BiasVoltage[EventCounter] << std::endl;
+         
             } else {
                 tree->GetEntry(EventCounter);
                 DataType = "TEST";
                 Current = ev->Gethvc();
                 BiasVoltage = ev->Gethv();
+                std::cout << "Current: " << Current[EventCounter] << std::endl;
+                std::cout << "BV: " << BiasVoltage[EventCounter] << std::endl;
             }
         }
        
