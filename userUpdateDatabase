@@ -209,10 +209,10 @@ def writeRankingSQL(d, fileList, ranking, rankingComment):
             # Write the generated SQL statement to the output file
                 sql_file.write(sql)
             except:
-                sql = (
-                    f"INSERT INTO RankingInfo(Filename, ranking, comments, OpMode, Test Events, HLED Events, Forced Events) "
-                    f"VALUES ('{f}','{ranking}','{rankingComment}', '6');\n"
-                )
+                # sql = (
+                #     f"INSERT INTO RankingInfo(Filename, ranking, comments, OpMode, Test Events, HLED Events, Forced Events) "
+                #     f"VALUES ('{f}','{ranking}','{rankingComment}', '6');\n"
+                # )
             # Write the generated SQL statement to the output file
                 sql_file.write(sql)
                 print(f"ranking info incomplete or some error please check file {f}")
