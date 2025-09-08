@@ -191,6 +191,11 @@ if (fileNamesVec.size() == 0){
             fileBV.push_back(roundBVAvg);
         }   // close for event in file
 
+    if((std::adjacent_find(fileBV.begin(), fileBV.end(), std::not_equal_to<>()) == fileBV.end()) && (std::adjacent_find(fileCurrent.begin(), fileCurrent.end(), std::not_equal_to<>()) == fileCurrent.end())){
+        std::cout << "file current: " << fileCurrent[0] << std::endl;
+        std::cout << "file bv: " << fileBV[0] << std::endl;
+    }
+
 //     if (nEntries==0) {
 //         OpMode = "intrigs";
 // // if no Test entries -> file put into intrigs
