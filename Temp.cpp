@@ -139,6 +139,9 @@ if (fileNamesVec.size() == 0){
         int nEntriesHLED = treeHLED->GetEntries();
 
         // check number tests and HLEDs
+        std::cout << "Tests: " << nEntries << ", HLED: " << nEntriesHLED << std::endl;
+
+
         TotalEvents = nEntries + nEntriesHLED;
 
         std::vector<float> fileCurrent;
