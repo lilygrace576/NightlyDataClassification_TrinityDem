@@ -192,9 +192,7 @@ def chmodcsv(d):
 def main():
     ################# Location of data ################
 
-    # folder_path=f'/data/TrinityLabComputer/Database/file_db/hiveData/Output'
-    folder_path=f'/storage/hive/project/phy-otte/lsheram6/LilysPlace/UpdateDatabase/Output'
-
+    folder_path=f'/data/TrinityLabComputer/Database/file_db/hiveData/Output'
 
     ###########################################################
     
