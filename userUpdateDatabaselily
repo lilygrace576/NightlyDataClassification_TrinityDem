@@ -26,6 +26,7 @@ class color:
 def checkDatainput():
     while True: 
         date=input(color.RED + "Date (YYYYMMDD):" + color.END)
+        path=input(color.RED + "Source Path:" + color.END)
 
         try: 
             val=int(date)
@@ -38,8 +39,8 @@ def checkDatainput():
             print("Please enter a value date.") 
 
 
-def loadDataFiles(d):
-    folderPath = f"/storage/hive/project/phy-otte/shared/Trinity/Data/{d}/RawDataMerged/"
+def loadDataFiles(d, p):
+    folderPath = f"{p}/Data/{d}/RawDataMerged/"
     dataList = os.listdir(folderPath)
     dataList = np.sort(np.array(dataList))
     if len(dataList) == 0:
@@ -91,10 +92,10 @@ def getWeatherInfo():
 
 ##-------------------------Write Definitions-------------------------##
 
-def writeDataInfoSQL(d,fileList, badPixels, commentDataInfo):
+def writeDataInfoSQL(d,fileList, p, badPixels, commentDataInfo):
     output_sql = f'Output/DataInfo_{d}.sql'  # Output SQL file
     #dataSumFile = f"/storage/hive/project/phy-otte/shared/Trinity/DataAnalysis/DataSummary/Output/{d}.csv"
-    dataSMFile = f"/storage/hive/project/phy-otte/shared/Trinity/DataAnalysis/DataCalibration/AncillaryData/Data2/statemessages{d}.csv"
+    dataSMFile = f"{p}/DataAnalysis/AncillaryData/Data2/statemessages{d}.csv"
     #dataSMFile = "/home/mpotts32/Sofia202501/DataCalibration/AncillaryData/Data2/Data2.csv"
     header = ["Timestamp","TriggerRate","HV1","HV2","HV3","HV4","HVCur1","HVCur2","HVCur3","HVCur4","UCTemp#1","UCTemp#10","UCTemp11","UCTemp#12","UCTemp#13","UCTemp#14","UCTemp#15","UCTemp#16","UCTemp#2","UCTemp#3","UCTemp#4","UCTemp#5","UCTemp#6","UCTemp#7","UCTemp#8","UCTemp#9","MUSICMPWR1","MUSICPWR10","MUSICPWR11","MUSICPWR12","MUSICPWR13","MUSICPWR14","MUSICPWR15","MUSICPWR16","MUSICPWR2","MUSICPWR3","MUSICPWR4","MUSICPWR5","MUSICPWR6","MUSICPWR7","MUSICPWR8","MUSICPWR9","HVSW1","HVSW10","HVSW11","HVSW12","HVSW13","HVSW14","HVSW15","HVSW16","HVSW2","HVSW3","HVSW4","HVSW5","HVSW6","HVSW7","HVSW8","HVSW9","SiPMTemp#1","SiPMTemp#10","SiPMTemp#11","SiPMTemp#12","SiPMTemp#13","SiPMTemp#14","SiPMTemp#15","SiPMTemp#16","SiPMTemp#2","SiPMTemp#3","SiPMTemp#4","SiPMTemp#5","SiPMTemp#6","SiPMTemp#7","SiPMTemp#8","SiPMTemp#9","ASADCurrent","SIABcurr#1","SIABcurr#10","SIABcurr#11","SIABcurr#12","SIABcurr#13","SIABcurr#14","SIABcurr#15","SIABcurr#16","SIABcurr#2","SIABcurr#3","SIABcurr#4","SIABcurr#5","SIABcurr#6","SIABcurr#7","SIABcurr#8","SIABcurr#9","TBCurr","UnixTime"]
 
@@ -114,7 +115,7 @@ def writeDataInfoSQL(d,fileList, badPixels, commentDataInfo):
 
 
     #dataSumFile = "/home/mpotts32/Sofia202501/DataSummary/Output/test.csv"
-    dataSumFile = f"/storage/hive/project/phy-otte/shared/Trinity/DataAnalysis/DataSummary/Output/{d}.csv"
+    dataSumFile = f"{p}/DataAnalysis/DataSummary/Output/{d}.csv"
     #dataSumFile = f"/storage/hive/project/phy-otte/shared/Trinity/DataAnalysis/DataSummary/Output/test.csv"
     columns = ["AvgNumEvents","AmpDist", "HLEDmean", "HLEDnormmean", "Pedestalmean","PedestalRMSmean", "Chargemean", "Peaktimemean", "Sigma", "Threshold","ThresholdValue"] 
 
@@ -182,9 +183,9 @@ def writeDataInfoSQL(d,fileList, badPixels, commentDataInfo):
     os.chmod(output_sql, 0o666)
     return print(f"DataInfo SQL queries have been written to {output_sql}")
     
-def writeRankingSQL(d, fileList, ranking, rankingComment):
+def writeRankingSQL(d, fileList, p, ranking, rankingComment):
     output_sql = f'Output/Ranking_{d}.sql'  # Output SQL file
-    OpModeFile = f'/storage/hive/project/phy-otte/lsheram6/LilysPlace/NightlyDataClassification_TrinityDem/AllFiles.txt'
+    OpModeFile = f'{p}/DataAnalysis/AncillaryData/file_database/AllFiles.txt'
 
     df = pd.read_csv(OpModeFile, delimiter=',')
     df.to_csv('OpMode.csv', index = None)
@@ -220,10 +221,10 @@ def writeRankingSQL(d, fileList, ranking, rankingComment):
     os.chmod(output_sql, 0o666)
     return print(f"Ranking SQL queries have been written to {output_sql}")
 
-def writeWeatherSQL(d,fileList,clouds, cloudsFreq, snowGround, rain, comments):
+def writeWeatherSQL(d,fileList, p, clouds, cloudsFreq, snowGround, rain, comments):
     output_sql = f'Output/Weather_{d}.sql'
     #weatherFile = f'/home/mpotts32/weather/weather_{d}'
-    weatherFile = f'/storage/hive/project/phy-otte/shared/Trinity/MiscData/WeatherData/weather/weather_{d}'
+    weatherFile = f'{p}/MiscData/WeatherData/weather/weather_{d}'
 
     header = [
             "Node", "RelativeWindDirection", "RelativeWindSpeed", "CorrectedWindDirection",
@@ -250,7 +251,7 @@ def writeWeatherSQL(d,fileList,clouds, cloudsFreq, snowGround, rain, comments):
     day_before=d_before.strftime("%Y%m%d")
 
     # load and datetime the weather csv
-    weatherFile = f'/storage/hive/project/phy-otte/shared/Trinity/MiscData/WeatherData/weather/weather_{day_before}'
+    weatherFile = f'{p}/MiscData/WeatherData/weather/weather_{day_before}'
     df2 = pd.read_csv(weatherFile, delimiter=',', header=None, names=header)
     #print(df)
     df2['DateTime'] = pd.to_datetime(df2['DateTime'], errors='coerce', format="%Y-%m-%dT%H:%M:%S.%f")
@@ -264,7 +265,7 @@ def writeWeatherSQL(d,fileList,clouds, cloudsFreq, snowGround, rain, comments):
         df = pd.concat([df,df2])
 
         # load and datetime the weather csv
-        weatherFile = f'/storage/hive/project/phy-otte/shared/Trinity/MiscData/WeatherData/weather/weather_{day_after}'
+        weatherFile = f'{p}/MiscData/WeatherData/weather/weather_{day_after}'
         df3 = pd.read_csv(weatherFile, delimiter=',', header=None, names=header)
         df3['DateTime'] = pd.to_datetime(df3['DateTime'], errors='coerce', format="%Y-%m-%dT%H:%M:%S.%f")
         df3['DateTime'] = df3['DateTime'].dt.strftime("%Y-%m-%d %H:%M:%S")
@@ -292,10 +293,10 @@ def writeWeatherSQL(d,fileList,clouds, cloudsFreq, snowGround, rain, comments):
     os.chmod(output_sql, 0o666)
     return print(f"Weather SQL queries have been written to {output_sql}")
         
-def writeCelestialSQL(d,fileList):
+def writeCelestialSQL(d,fileList,p):
     output_sql = f'Output/Celestial_{d}.sql'
     #celestialFile=f'/home/mpotts32/Sofia202501/DataCalibration/DataCalibration/CalibratedData/celestialPositions{d}.csv'
-    celestialFile=f'/storage/hive/project/phy-otte/shared/Trinity/DataAnalysis/DataCalibration/AncillaryData/Data1/celestialPositions{d}.csv'
+    celestialFile=f'{p}/DataAnalysis/AncillaryData/Data1/celestialPositions{d}.csv'
 
     df = pd.read_csv(celestialFile, delimiter=',')
     df['DateTime'] = df['date'].astype(str)+ "T" + df['time'].astype(str)
@@ -328,18 +329,18 @@ def main():
     ##------------------------- Load in File Information Table Creatation -----------------------##
 
     print("Welcome to the database upload. \nPlease provide the night uploading.")
-    folderName = checkDatainput()
+    folderName, path = checkDatainput()
     #folderName = "20240718"
-    fileList=loadDataFiles(folderName)
+    fileList=loadDataFiles(folderName, path)
 
     ##------------------------- Weather Table Creatation------------------------------------------##
 
     clouds, cloudsFreq, snowGround, rain, comments = getWeatherInfo()
-    writeWeatherSQL(folderName, fileList, clouds, cloudsFreq, snowGround, rain, comments)
+    writeWeatherSQL(folderName, fileList, path, clouds, cloudsFreq, snowGround, rain, comments)
 
     ##------------------------- Celstial Table Creatation-----------------------------------------##
 
-    writeCelestialSQL(folderName,fileList)
+    writeCelestialSQL(folderName,fileList,path)
 
     ##------------------------ Data Info Table Creatation----------------------------------------##
 
@@ -355,12 +356,12 @@ def main():
     # Amp dist - get from data summary
 
     badPixels, commentDataInfo = getDataInfo()
-    writeDataInfoSQL(folderName,fileList,badPixels, commentDataInfo)
+    writeDataInfoSQL(folderName,fileList,path,badPixels, commentDataInfo)
 
     ##------------------------- Ranking Table Creatation------------------------------------------##
 
     ranking, rankingComment = getRankingInfo()
-    writeRankingSQL(folderName,fileList,ranking,rankingComment)
+    writeRankingSQL(folderName,fileList,path,ranking,rankingComment)
 
 if __name__ == "__main__":
     main()
