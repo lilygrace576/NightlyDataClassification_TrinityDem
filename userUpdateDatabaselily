@@ -38,6 +38,12 @@ def checkDatainput():
         except:
             print("Please enter a value date.") 
 
+def getPath():
+    # user input path
+    # /storage/osg-otte1/shared/TrinityDemonstrator: /mnt
+    path=input(color.RED + "Source Path:" + color.END)
+    print(path)
+    return path
 
 def loadDataFiles(d, p):
     folderPath = f"{p}/Data/{d}/RawDataMerged/"
@@ -92,7 +98,7 @@ def getWeatherInfo():
 
 ##-------------------------Write Definitions-------------------------##
 
-def writeDataInfoSQL(d,fileList, p, badPixels, commentDataInfo):
+def writeDataInfoSQL(d, p, fileList, badPixels, commentDataInfo):
     output_sql = f'Output/DataInfo_{d}.sql'  # Output SQL file
     #dataSumFile = f"/storage/hive/project/phy-otte/shared/Trinity/DataAnalysis/DataSummary/Output/{d}.csv"
     dataSMFile = f"{p}/DataAnalysis/AncillaryData/Data2/statemessages{d}.csv"
@@ -183,7 +189,7 @@ def writeDataInfoSQL(d,fileList, p, badPixels, commentDataInfo):
     os.chmod(output_sql, 0o666)
     return print(f"DataInfo SQL queries have been written to {output_sql}")
     
-def writeRankingSQL(d, fileList, p, ranking, rankingComment):
+def writeRankingSQL(d, p, fileList, ranking, rankingComment):
     output_sql = f'Output/Ranking_{d}.sql'  # Output SQL file
     OpModeFile = f'{p}/DataAnalysis/AncillaryData/file_database/AllFiles.txt'
 
@@ -221,7 +227,7 @@ def writeRankingSQL(d, fileList, p, ranking, rankingComment):
     os.chmod(output_sql, 0o666)
     return print(f"Ranking SQL queries have been written to {output_sql}")
 
-def writeWeatherSQL(d,fileList, p, clouds, cloudsFreq, snowGround, rain, comments):
+def writeWeatherSQL(d, p, fileList, clouds, cloudsFreq, snowGround, rain, comments):
     output_sql = f'Output/Weather_{d}.sql'
     #weatherFile = f'/home/mpotts32/weather/weather_{d}'
     weatherFile = f'{p}/MiscData/WeatherData/weather/weather_{d}'
@@ -293,7 +299,7 @@ def writeWeatherSQL(d,fileList, p, clouds, cloudsFreq, snowGround, rain, comment
     os.chmod(output_sql, 0o666)
     return print(f"Weather SQL queries have been written to {output_sql}")
         
-def writeCelestialSQL(d,fileList,p):
+def writeCelestialSQL(d, p, fileList):
     output_sql = f'Output/Celestial_{d}.sql'
     #celestialFile=f'/home/mpotts32/Sofia202501/DataCalibration/DataCalibration/CalibratedData/celestialPositions{d}.csv'
     celestialFile=f'{p}/DataAnalysis/AncillaryData/Data1/celestialPositions{d}.csv'
@@ -329,18 +335,19 @@ def main():
     ##------------------------- Load in File Information Table Creatation -----------------------##
 
     print("Welcome to the database upload. \nPlease provide the night uploading.")
-    folderName, path = checkDatainput()
+    folderName = checkDatainput()
+    path = getPath()
     #folderName = "20240718"
     fileList=loadDataFiles(folderName, path)
 
     ##------------------------- Weather Table Creatation------------------------------------------##
 
     clouds, cloudsFreq, snowGround, rain, comments = getWeatherInfo()
-    writeWeatherSQL(folderName, fileList, path, clouds, cloudsFreq, snowGround, rain, comments)
+    writeWeatherSQL(folderName, path, fileList, clouds, cloudsFreq, snowGround, rain, comments)
 
     ##------------------------- Celstial Table Creatation-----------------------------------------##
 
-    writeCelestialSQL(folderName,fileList,path)
+    writeCelestialSQL(folderName, path, fileList)
 
     ##------------------------ Data Info Table Creatation----------------------------------------##
 
@@ -356,12 +363,12 @@ def main():
     # Amp dist - get from data summary
 
     badPixels, commentDataInfo = getDataInfo()
-    writeDataInfoSQL(folderName,fileList,path,badPixels, commentDataInfo)
+    writeDataInfoSQL(folderName, path, fileList, badPixels, commentDataInfo)
 
     ##------------------------- Ranking Table Creatation------------------------------------------##
 
     ranking, rankingComment = getRankingInfo()
-    writeRankingSQL(folderName,fileList,path,ranking,rankingComment)
+    writeRankingSQL(folderName, path, fileList, ranking, rankingComment)
 
 if __name__ == "__main__":
     main()
