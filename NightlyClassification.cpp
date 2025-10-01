@@ -1,4 +1,5 @@
-#include "Temp.h"
+// #include "Temp.h"
+#include "NightlyClassification.h"
 #include <map>
 #include <bits/stdc++.h>
 #include <sstream>
@@ -11,6 +12,15 @@ int main(int argc, char **argv){
     
 // Get the Arguments 
 std::string folString = argv[1];
+std::string mount = argv[2]; // this is the argument for the mount location
+
+
+if(mount !='n'){
+
+} else {
+    dataDir = Form("%sDataAnalysis/DataCalibration/MergedData/Output/",mount.c_str()) ;
+    outDir = Form("%s",mount.c_str());// update output dir
+}
 
 // Create txt file for Operation Mode 0; Intrigs
 std::ofstream outputFile0("intrigs.txt");
