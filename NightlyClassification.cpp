@@ -18,7 +18,7 @@ std::string mount = argv[2]; // this is the argument for the mount location
 if(mount !='n'){
 
 } else {
-    dataDir = Form("%sDataAnalysis/DataCalibration/MergedData/Output/",mount.c_str()) ;
+    dataDir = Form("%sDataAnalysis/MergedData/Output/",mount.c_str()) ;
     outDir = Form("%s",mount.c_str());// update output dir
 }
 
