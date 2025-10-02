@@ -16,14 +16,14 @@ std::string mount = argv[2]; // this is the argument for the mount location
 
 
 if(mount !='n'){
+    dataDir = Form("%s/DataAnalysis/MergedData/Output/",mount.c_str()) ;
+    outDir = Form("%s/DataAnalysis/AncillaryData/file_database/NightlyClassificationScripts/Output/",mount.c_str());// update output dir
+} else 
 
-} else {
-    dataDir = Form("%sDataAnalysis/MergedData/Output/",mount.c_str()) ;
-    outDir = Form("%s",mount.c_str());// update output dir
-}
+
 
 // Create txt file for Operation Mode 0; Intrigs
-std::ofstream outputFile0("intrigs.txt");
+std::ofstream outputFile0(outDir + "intrigs.txt");
 if (outputFile0.is_open()) {
     outputFile0 << "Operation Mode 0: Intrigs" << "\n";
     outputFile0 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" << "\n"; 
@@ -33,7 +33,7 @@ if (outputFile0.is_open()) {
 }
 
 // Create txt file for Operation Mode 1; Normal
-std::ofstream outputFile1("NormalOps.txt");
+std::ofstream outputFile1(outDir + "NormalOps.txt");
 if (outputFile1.is_open()) {
     outputFile1 << "Operation Mode 1: Normal" << "\n";
     outputFile1 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" << "\n"; 
@@ -43,7 +43,7 @@ if (outputFile1.is_open()) {
 }
 
 // Create txt file for Operation Mode 2; Extended Moon
-std::ofstream outputFile2("ExtMoonOps.txt");
+std::ofstream outputFile2(outDir + "ExtMoonOps.txt");
 if (outputFile2.is_open()) {
     outputFile2 << "Operaion Mode 2: Extended Moon" << "\n";
     outputFile2 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" << "\n"; 
@@ -53,7 +53,7 @@ if (outputFile2.is_open()) {
 }
 
 // Create txt file for Operation Mode3; Door Closed
-std::ofstream outputFile3("DoorClosed.txt");
+std::ofstream outputFile3(outDir + "DoorClosed.txt");
 if (outputFile3.is_open()) {
     outputFile3 << "Operation Mode 3: Door Down" << "\n";
     outputFile3 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" << "\n"; 
@@ -63,7 +63,7 @@ if (outputFile3.is_open()) {
 }
 
 // Create txt file for Data not being sorted into other files
-std::ofstream outputFile4("Other.txt");
+std::ofstream outputFile4(outDir + "Other.txt");
 if (outputFile4.is_open()) {
     outputFile4 << "Other" << "\n";
     outputFile4 << "File Name, " << "Test Events, " << "HLED Events, " << "Forced Events, " << "Avg Rounded Bias Voltage, " << "Max Current" <<  "\n"; 
@@ -73,7 +73,7 @@ if (outputFile4.is_open()) {
 }
 
 // Create txt file for Data not being sorted into other files
-std::ofstream outputFile5("AllFiles.txt");
+std::ofstream outputFile5(outDir + "AllFiles.txt");
 if (outputFile5.is_open()) {
     outputFile5 << "File Name, " << "OpMode, " << "Test Events, " << "HLED Events, " << "Forced Events" << "\n"; 
 } else {
