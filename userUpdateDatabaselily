@@ -191,7 +191,7 @@ def writeDataInfoSQL(d, p, fileList, badPixels, commentDataInfo):
     
 def writeRankingSQL(d, p, fileList, ranking, rankingComment):
     output_sql = f'Output/Ranking_{d}.sql'  # Output SQL file
-    OpModeFile = f'{p}/DataAnalysis/AncillaryData/file_database/AllFiles.txt'
+    OpModeFile = f'{p}/DataAnalysis/AncillaryData/file_database/NightlyClassification/Output/AllFiles.txt'
 
     df = pd.read_csv(OpModeFile, delimiter=',')
     df.to_csv('OpMode.csv', index = None)
