@@ -198,7 +198,7 @@ def writeRankingSQL(d, p, fileList, ranking, rankingComment):
     df.to_csv('csv_path', index = None)
 
     # makes fileList name and File Name from csv in same format 
-    df['File Name'] = df['File Name'].str.replace('Merged', 'CoBo0_AsAd0')
+    df['File Name'] = df['File Name'].str.replace('Merged_', '')
 
     with open(output_sql, mode='w') as sql_file:
 
