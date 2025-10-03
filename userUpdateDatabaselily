@@ -194,7 +194,8 @@ def writeRankingSQL(d, p, fileList, ranking, rankingComment):
     OpModeFile = f'{p}/DataAnalysis/AncillaryData/file_database/NightlyClassification/Output/AllFiles.txt'
 
     df = pd.read_csv(OpModeFile, delimiter=',')
-    df.to_csv('OpMode.csv', index = None)
+    csv_path = f'{p}/DataAnalysis/AncillaryData/file_database/UpdateDB/OpModeFile.csv'
+    df.to_csv('csv_path', index = None)
 
     # makes fileList name and File Name from csv in same format 
     df['File Name'] = df['File Name'].str.replace('Merged', 'CoBo0_AsAd0')
