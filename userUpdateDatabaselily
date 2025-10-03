@@ -203,8 +203,6 @@ def writeRankingSQL(d, p, fileList, ranking, rankingComment):
 
         for f in fileList:            
             #looking for csv data for entry with same file name as f in fileList
-            # print(f'file from list')
-            # print(f)
             opModeInfo = df[df['File Name'] == f]
 
             try:
