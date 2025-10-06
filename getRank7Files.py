@@ -96,7 +96,8 @@ dfMerged = pd.merge(dfRanking, dfData, on='Filename')
 dfMerged = pd.merge(dfMerged, dfCelestial, on='Filename')
 
 ####
-dfMerged['Ranking'] = dfMerged['Ranking'].astype(int)
+dfMerged['Ranking'] = pd.to_numeric(dfMerged['Ranking'], errors='coerce')
+dfMerged['Ranking'] = dfMerged['Ranking'].fillna(0).astype(int)
 #####
 dfMerged['hvValues1'] = dfMerged['hvValues1'].astype(float)
 dfMerged['hvcurrents1'] = dfMerged['hvcurrents1'].astype(float)
